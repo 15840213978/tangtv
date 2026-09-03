@@ -160,6 +160,25 @@ public class VodConfig extends BaseConfig {
     }
 
     private void parseDepot(Config config, JsonObject object) throws Throwable {
+        // 自动加入本地 clys 多线路配置
+        if (object.has("urls") && object.get("urls").isJsonArray()) {
+            JsonObject local = new JsonObject();
+            local.addProperty("url", "assets://clys/clys.top");
+            local.addProperty("name", "🐉宸龙｜宸龙影视");
+
+            boolean exists = false;
+            for (Depot item : Depot.arrayFrom(object.getAsJsonArray("urls").toString())) {
+                if ("assets://clys/clys.top".equals(item.getUrl())) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists) {
+                object.getAsJsonArray("urls").add(local);
+            }
+        }
+
         List<Depot> items = Depot.arrayFrom(object.getAsJsonArray("urls").toString());
         List<Config> configs = new ArrayList<>();
         for (Depot item : items) configs.add(Config.find(item, VOD));
