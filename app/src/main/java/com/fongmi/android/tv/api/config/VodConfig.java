@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 public class VodConfig extends BaseConfig {
 
     private static final String TAG = VodConfig.class.getSimpleName();
+    private static final String DEFAULT_CLYS = "assets://clys/chenlong.jpg";
 
     private Site home;
     private String wall;
