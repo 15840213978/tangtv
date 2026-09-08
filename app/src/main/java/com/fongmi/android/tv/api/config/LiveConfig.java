@@ -129,25 +129,9 @@ public class LiveConfig extends BaseConfig {
             initLive(config, new JsonObject());
             return;
         }
-   
-    String source = config.getUrl();
-
-    if (TextUtils.isEmpty(source)) {
-    source = DEFAULT_CLYS;
-    }
-
-    String json = Decoder.getJson(UrlUtil.convert(source), TAG);
-
-    if (Json.isObj(json)) checkJson(config, Json.parse(json).getAsJsonObject());
-    else parseText(config, json);
-    if (TextUtils.isEmpty(source)) {
-    source = DEFAULT_CLYS;
-    }
-
-    String json = Decoder.getJson(UrlUtil.convert(source), TAG);
-
-    if (Json.isObj(json)) checkJson(config, Json.parse(json).getAsJsonObject());
-    else parseText(config, json);    
+        String json = Decoder.getJson(UrlUtil.convert(config.getUrl()), TAG);
+        if (Json.isObj(json)) checkJson(config, Json.parse(json).getAsJsonObject());
+        else parseText(config, json);
     }
 
     @Override
