@@ -129,7 +129,13 @@ public class VodConfig extends BaseConfig {
     @Override
     protected void load(Config config) throws Throwable {
         // 猫源填的是 bundle 地址（.js.md5），要先在本机把 Node 服务跑起来，再读它的 /config
-        String url = CatSource.isBundle(config.getUrl()) ? CatSource.serve(config.getUrl()) : UrlUtil.convert(config.getUrl());
+        String source = config.getUrl();
+
+        if (TextUtils.isEmpty(source)) {
+            source = DEFAULT_CLYS;
+        }
+
+        String url = CatSource.isBundle(source) ? CatSource.serve(source) : UrlUtil.convert(source);
         String json = Decoder.getJson(url, TAG);
         checkJson(config, CatSource.normalize(url, Json.parse(json)));
     }
