@@ -129,7 +129,7 @@ public class LiveConfig extends BaseConfig {
             initLive(config, new JsonObject());
             return;
         }
-    String source = config.getUrl();
+   
     String source = config.getUrl();
 
     if (TextUtils.isEmpty(source)) {
